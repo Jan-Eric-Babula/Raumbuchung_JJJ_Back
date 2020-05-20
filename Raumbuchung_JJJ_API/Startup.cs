@@ -26,9 +26,6 @@ namespace Raumbuchung_JJJ_API
                 if (migrate)
                 {
                     db.Database.EnsureCreated();
-                }
-                if (migrate)
-                {
                     db.Database.Migrate();
                 }
             }
