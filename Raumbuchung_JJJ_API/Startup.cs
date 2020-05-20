@@ -6,10 +6,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Raumbuchung_JJJ_API.Models;
 
 namespace Raumbuchung_JJJ_API
 {
@@ -18,6 +20,18 @@ namespace Raumbuchung_JJJ_API
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            using(var db = new RoomBookingDBContext())
+            {
+                var migrate = Configuration.GetValue<Boolean>("Database:Migration");
+                if (migrate)
+                {
+                    db.Database.EnsureCreated();
+                }
+                if (migrate)
+                {
+                    db.Database.Migrate();
+                }
+            }
         }
 
         public IConfiguration Configuration { get; }
@@ -25,6 +39,7 @@ namespace Raumbuchung_JJJ_API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<RoomBookingDBContext>();
             services.AddControllers();
         }
 
