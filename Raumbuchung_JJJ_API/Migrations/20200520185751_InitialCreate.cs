@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Raumbuchung_JJJ_API.Migrations
 {
@@ -11,14 +10,16 @@ namespace Raumbuchung_JJJ_API.Migrations
                 name: "Rooms",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false).Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(nullable: false),
-                    Floor = table.Column<int>(nullable: false)
+                    Id = table.Column<uint>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Floor = table.Column<int>(type: "INTEGER", nullable: false)
                 },
-                constraints: table => { table.PrimaryKey("PK_Rooms", x => x.Id); }
-            );
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rooms", x => x.Id);
+                });
         }
-
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {

@@ -20,15 +20,6 @@ namespace Raumbuchung_JJJ_API
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            using(var db = new RoomBookingDBContext())
-            {
-                var migrate = Configuration.GetValue<Boolean>("Database:Migration");
-                if (migrate)
-                {
-                    db.Database.EnsureCreated();
-                    db.Database.Migrate();
-                }
-            }
         }
 
         public IConfiguration Configuration { get; }
