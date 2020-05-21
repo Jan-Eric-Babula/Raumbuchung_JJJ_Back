@@ -8,7 +8,7 @@ using Raumbuchung_JJJ_API.Models;
 namespace Raumbuchung_JJJ_API.Controllers
 {
     [ApiController]
-    [Route("rooms/")]
+    [Route("rooms")]
     public class RoomsController : ControllerBase
     {
         private readonly RoomBookingDBContext _context;
